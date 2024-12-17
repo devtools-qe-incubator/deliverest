@@ -7,3 +7,6 @@ remove_folder () {
     echo "Remove-Item \"${1}\" -Recurse -Force"
 }
 
+reboot() {
+    echo "Restart-Computer -Force"
+}

@@ -5,6 +5,7 @@ source /usr/local/bin/remote.sh
 source /usr/local/bin/${OS}/os.sh
 
 # Default values
+REBOOT="${TARGET_CLEANUP:-"false"}"
 TARGET_CLEANUP="${TARGET_CLEANUP:-"true"}"
 CHECK_CONNECTION="${CHECK_CONNECTION:-"true"}"
 CHECK_CONNECTION_ATTEMPTS=${CHECK_CONNECTION_ATTEMPTS:-30}
@@ -72,4 +73,10 @@ if [ "${TARGET_CLEANUP:-}" = "true" ]; then
     # This will create the cmd based on OS env with the right syntax
     cmd="$(remove_folder ${TARGET_FOLDER})"
     exec_and_retry ${SSH_CMD_ATTEMPTS} ${SSH_CMD_DELAY} "$(ssh_cmd $cmd)"
+fi
+
+# Reboot machine
+if [ "${REBOOT:-}" = "true" ]; then
+    reboot_cmd="$(ssh_cmd) $(reboot)"
+    $reboot_cmd
 fi

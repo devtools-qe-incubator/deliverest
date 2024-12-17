@@ -6,3 +6,7 @@
 remove_folder () {
     echo "rm -r ${1}"
 }
+
+reboot() {
+    echo "sudo reboot"
+}
